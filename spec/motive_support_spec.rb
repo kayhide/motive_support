@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe MotiveSupport do
   it 'has a version number' do
-    expect(MotiveSupport::VERSION).not_to be nil
-  end
-
-  it 'does something useful' do
-    expect(false).to eq(true)
+    MotiveSupport::VERSION.should != nil
   end
 end

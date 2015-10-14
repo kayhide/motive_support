@@ -1,5 +1,5 @@
-require "motive_support/version"
+require 'motion_blender'
+MotionBlender.add
+MotionBlender.use_motion_dir
 
-module MotiveSupport
-  # Your code goes here...
-end
+require "motive_support/version"
