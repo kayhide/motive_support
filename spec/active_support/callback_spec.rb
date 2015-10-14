@@ -148,11 +148,6 @@ module CallbacksTest
     before_save Proc.new { |r| r.history << "b00m" }, :if => :no
     before_save Proc.new { |r| r.history << [:before_save, :symbol] }, :unless => :no
     before_save Proc.new { |r| r.history << "b00m" }, :unless => :yes
-    # string
-    before_save Proc.new { |r| r.history << [:before_save, :string] }, :if => 'yes'
-    before_save Proc.new { |r| r.history << "b00m" }, :if => 'no'
-    before_save Proc.new { |r| r.history << [:before_save, :string] }, :unless => 'no'
-    before_save Proc.new { |r| r.history << "b00m" }, :unless => 'yes'
     # Combined if and unless
     before_save Proc.new { |r| r.history << [:before_save, :combined_symbol] }, :if => :yes, :unless => :no
     before_save Proc.new { |r| r.history << "b00m" }, :if => :yes, :unless => :yes
@@ -182,7 +177,7 @@ module CallbacksTest
     set_callback :save, :before, :nope,           :if =>     :no
     set_callback :save, :before, :nope,           :unless => :yes
     set_callback :save, :after,  :tweedle
-    set_callback :save, :before, "tweedle_dee"
+    set_callback :save, :before, :tweedle_dee
     set_callback :save, :before, proc {|m| m.history << "yup" }
     set_callback :save, :before, :nope,           :if =>     proc { false }
     set_callback :save, :before, :nope,           :unless => proc { true }
@@ -343,7 +338,7 @@ module CallbacksTest
   class CallbackTerminator
     include ActiveSupport::Callbacks
 
-    define_callbacks :save, :terminator => lambda { |result| result == :halt }
+    define_callbacks :save, terminator: ->(target, result) { result == :halt }
 
     set_callback :save, :before, :first
     set_callback :save, :before, :second
@@ -611,8 +606,6 @@ describe "Callbacks" do
       [:before_save, :proc],
       [:before_save, :symbol],
       [:before_save, :symbol],
-      [:before_save, :string],
-      [:before_save, :string],
       [:before_save, :combined_symbol],
     ]
   end
@@ -668,7 +661,7 @@ describe "Callbacks" do
     it "should invoke hook" do
       terminator = CallbacksTest::CallbackTerminator.new
       terminator.save
-      terminator.halted.should == ":second"
+      terminator.halted.should == :second
     end
 
     it "should never call block if terminated" do
