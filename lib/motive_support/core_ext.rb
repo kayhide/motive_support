@@ -1,6 +1,6 @@
 require 'motion_blender'
 MotionBlender.add
-MotionBlender.use_motion_dir File.expand_path('../../../motion', __FILE__)
+MotionBlender.use_motion_dir
 
 require 'motive_support/core_ext/array'
 require 'motive_support/core_ext/class'

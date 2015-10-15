@@ -1,6 +1,6 @@
 require 'motion_blender'
 MotionBlender.add
-MotionBlender.use_motion_dir File.expand_path('../../../../motion', __FILE__)
+MotionBlender.use_motion_dir
 
 require 'active_support/core_ext/ns_dictionary'
 require 'active_support/core_ext/hash/deep_merge'
