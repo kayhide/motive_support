@@ -63,12 +63,12 @@ describe "Duration" do
       end
       
       it "should support since" do
-        t = 2.years.ago
+        t = 2.years.ago.utc
         1.5.days.since(t).should == 36.hours.since(t)
       end
       
       it "should support ago" do
-        t = 2.years.ago
+        t = 2.years.ago.utc
         1.5.days.ago(t).should == 36.hours.ago(t)
       end
     end
@@ -80,12 +80,12 @@ describe "Duration" do
       end
       
       it "should support since" do
-        t = 2.years.ago
+        t = 2.years.ago.utc
         1.5.weeks.since(t).should == (7 * 36).hours.since(t)
       end
       
       it "should support ago" do
-        t = 2.years.ago
+        t = 2.years.ago.utc
         1.5.weeks.ago(t).should == (7 * 36).hours.ago(t)
       end
     end
