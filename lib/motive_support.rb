@@ -9,6 +9,7 @@ MotionBlender.raketime do
 end
 
 MotionBlender.runtime do
+  require 'motive_support/_stdlib/bigdecimal'
   require 'motive_support/callbacks'
   require 'motive_support/concern'
   require 'motive_support/core_ext'

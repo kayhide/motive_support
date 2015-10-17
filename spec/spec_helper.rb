@@ -1,13 +1,12 @@
-require 'motion_blender'
-require 'i18n'
-
 MotionBlender.raketime do
-  file = File.expand_path('../fixtures/locale/ja.yml', __FILE__)
-  I18n.load_path << [file, 'locale/spec/ja.yml']
-
-  task 'spec' => 'motive_support:locale:prepare'
+  %w(ja fr).each do |lang|
+    file = File.expand_path("../fixtures/locale/#{lang}.yml", __FILE__)
+    I18n.load_path << [file, "locale/spec/#{lang}.yml"]
+  end
 end
 
 MotionBlender.runtime do
-  I18n.load_path << 'locale/spec/ja.yml'
+  %w(ja fr).each do |lang|
+    I18n.load_path << "locale/spec/#{lang}.yml"
+  end
 end
