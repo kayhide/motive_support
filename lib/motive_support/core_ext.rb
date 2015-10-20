@@ -1,5 +1,5 @@
 require 'motion_blender'
-MotionBlender.add
+MotionBlender.incept
 MotionBlender.use_motion_dir
 
 require 'motive_support/core_ext/array'

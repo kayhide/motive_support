@@ -1,12 +1,13 @@
 Module.new do
   def use_locales locales
+    original_locales = nil
     before do
-      @_original_locales = I18n.available_locales
+      original_locales = I18n.available_locales
       I18n.available_locales = locales
     end
 
     after do
-      I18n.available_locales = @_original_locales
+      I18n.available_locales = original_locales
     end
   end
 

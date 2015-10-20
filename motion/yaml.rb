@@ -1,13 +1,7 @@
-MotionBlender.raketime do
-  require 'motion-yaml'
-end
+require 'project/yaml'
 
-MotionBlender.runtime do
-  require 'project/yaml'
-
-  def YAML.load_file file
-    resource_dir = NSBundle.mainBundle.resourcePath
-    path = File.join(resource_dir, file)
-    YAML.load File.read(path)
-  end
+def YAML.load_file file
+  resource_dir = NSBundle.mainBundle.resourcePath
+  path = File.join(resource_dir, file)
+  YAML.load File.read(path)
 end

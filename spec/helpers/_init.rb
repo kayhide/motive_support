@@ -1,7 +1,8 @@
 MotionBlender.raketime do
+  spec_dir = Motion::Project::App.config.specs_dir
   %w(ja fr).each do |lang|
-    file = File.expand_path("../fixtures/locale/#{lang}.yml", __FILE__)
-    I18n.load_path << [file, "locale/spec/#{lang}.yml"]
+    src = File.join(spec_dir, "fixtures/locale/#{lang}.yml")
+    I18n.load_path << [src, "locale/spec/#{lang}.yml"]
   end
 end
 

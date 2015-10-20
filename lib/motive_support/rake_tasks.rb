@@ -1,5 +1,4 @@
-require 'rake'
-require 'i18n'
+MotionBlender.except
 
 namespace :motive_support do
   namespace :locale do
@@ -7,14 +6,12 @@ namespace :motive_support do
       config = Motion::Project::App.config
       resources_dir = Pathname.new(config.resources_dirs.first)
       I18n.load_path.each do |file, name|
-        unless name
-          dir = $LOAD_PATH.find { |p| file.start_with? p }
-          name = File.join('locale', file.sub(/^#{dir}\/?/, ''))
+        if name
+          dst = resources_dir.join(name)
+          dst.dirname.mkpath
+          Motion::Project::App.info('Copy', file)
+          FileUtils.cp file, dst
         end
-        dst = resources_dir.join(name)
-        dst.dirname.mkpath
-        Motion::Project::App.info('Copy', file)
-        FileUtils.cp file, dst
       end
     end
 
