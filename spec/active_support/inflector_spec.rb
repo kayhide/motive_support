@@ -6,11 +6,13 @@ module InflectorHelper
   # there are module functions that access ActiveSupport::Inflector.inflections,
   # so we need to replace the singleton itself.
   def with_dup
-    original = ActiveSupport::Inflector::Inflections.instance_variable_get(:@__instance__)
-    ActiveSupport::Inflector::Inflections.instance_variable_set(:@__instance__, original.dup)
+    instance = ActiveSupport::Inflector::Inflections.instance_variable_get(:@__instance__)
+    original = instance[:en]
+    instance[:en] = original.dup
     yield
   ensure
-    ActiveSupport::Inflector::Inflections.instance_variable_set(:@__instance__, original)
+    instance = ActiveSupport::Inflector::Inflections.instance_variable_get(:@__instance__)
+    instance[:en] = original
   end
 end
 

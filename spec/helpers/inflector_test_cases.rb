@@ -103,7 +103,6 @@ module InflectorTestCases
     "prize"       => "prizes",
     "edge"        => "edges",
 
-    "cow"         => "kine",
     "database"    => "databases",
 
     # regression tests against improper inflection regexes
@@ -263,7 +262,6 @@ module InflectorTestCases
     'child'  => 'children',
     'sex'    => 'sexes',
     'move'   => 'moves',
-    'cow'    => 'kine',
     'zombie' => 'zombies',
     'genus'  => 'genera'
   }

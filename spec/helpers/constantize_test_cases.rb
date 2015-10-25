@@ -34,8 +34,6 @@ module ConstantizeTestCases
     yield("Object::Case::Dice").should == Case::Dice
     yield("ConstantizeTestCases").should == ConstantizeTestCases
     yield("::ConstantizeTestCases").should == ConstantizeTestCases
-    yield("").should == Object
-    yield("::").should == Object
     lambda { block.call("UnknownClass") }.should.raise NameError
     lambda { block.call("UnknownClass::Ace") }.should.raise NameError
     lambda { block.call("UnknownClass::Ace::Base") }.should.raise NameError
@@ -45,6 +43,9 @@ module ConstantizeTestCases
     lambda { block.call("Ace::Base::ConstantizeTestCases") }.should.raise NameError
     lambda { block.call("Ace::Gas::Base") }.should.raise NameError
     lambda { block.call("Ace::Gas::ConstantizeTestCases") }.should.raise NameError
+    lambda { block.call("") }.should.raise NameError
+    lambda { block.call("::") }.should.raise NameError
+    lambda { block.call("Ace::gas") }.should.raise NameError
   end
 
   def run_safe_constantize_tests_on
@@ -58,8 +59,8 @@ module ConstantizeTestCases
     yield("Object::Case::Dice").should == Case::Dice
     yield("ConstantizeTestCases").should == ConstantizeTestCases
     yield("::ConstantizeTestCases").should == ConstantizeTestCases
-    yield("").should == Object
-    yield("::").should == Object
+    yield("").should.should.be.nil
+    yield("::").should.should.be.nil
     yield("UnknownClass").should.be.nil
     yield("UnknownClass::Ace").should.be.nil
     yield("UnknownClass::Ace::Base").should.be.nil
@@ -71,5 +72,10 @@ module ConstantizeTestCases
     yield("Ace::Gas::Base").should.be.nil
     yield("Ace::Gas::ConstantizeTestCases").should.be.nil
     yield("#<Class:0x7b8b718b>::Nested_1").should.be.nil
+    yield("Ace::gas").should.be.nil
+    yield('Object::ABC').should.be.nil
+    yield('Object::Object::Object::ABC').should.be.nil
+    yield('A::Object::B').should.be.nil
+    yield('A::Object::Object::Object::B').should.be.nil
   end
 end
