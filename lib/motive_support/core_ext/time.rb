@@ -2,8 +2,11 @@ require 'motion_blender'
 MotionBlender.incept
 MotionBlender.use_motion_dir
 
-require 'active_support/_stdlib/date'
-require 'active_support/_stdlib/time'
+require 'motive_support/version'
+require 'motive_support/rake_tasks'
+require 'motive_support/hooks'
+
+require 'motive_support/ext'
 require 'active_support/core_ext/time/acts_like'
 require 'active_support/core_ext/time/calculations'
 require 'active_support/core_ext/time/conversions'
