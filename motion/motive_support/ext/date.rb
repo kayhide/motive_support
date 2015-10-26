@@ -1,4 +1,16 @@
 class Date
+  def self.parse str
+    fail TypeError, "no implicit conversion of #{str.class} into String" unless str.is_a?(String)
+    formatter = NSDateFormatter.new
+    ["yyyy-MM-dd", "yyyyMMdd"].each do |format|
+      formatter.dateFormat = format
+      str = str.slice(0, format.length).gsub(/[\/\.]/, '-')
+      t = formatter.dateFromString(str)
+      return Date.new(t.year, t.month, t.day) if t
+    end
+    fail ArgumentError, "invalid date"
+  end
+
   def self.gregorian_leap?(year)
     if year % 400 == 0
       true
