@@ -102,12 +102,6 @@ describe "NSString" do
     end
   end
   
-  describe "indent!" do
-    it "should indent NSString in place" do
-      @string.indent!(2).should == "  ruby_motion"
-    end
-  end
-  
   describe "last" do
     it "should return last character of NSString" do
       @string.last.should == "n"
@@ -135,12 +129,6 @@ describe "NSString" do
   describe "squish" do
     it "should squish NSString" do
       NSString.stringWithString(" ruby\n  motion").squish.should == "ruby motion"
-    end
-  end
-  
-  describe "squish!" do
-    it "should squish NSString in place" do
-      NSString.stringWithString(" ruby\n  motion").squish!.should == "ruby motion"
     end
   end
   
