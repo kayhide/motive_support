@@ -7,5 +7,4 @@ require 'motive_support/rake_tasks'
 require 'motive_support/hooks'
 
 require 'motive_support/ext'
-require 'active_support/core_ext/class/attribute'
-require 'active_support/core_ext/class/attribute_accessors'
+require 'active_support/core_ext/class'
