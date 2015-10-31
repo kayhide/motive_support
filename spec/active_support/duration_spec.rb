@@ -98,10 +98,4 @@ describe "Duration" do
       counter.should == 60
     end
   end
-  
-  describe "to_json" do
-    it "should convert to json" do
-      2.days.to_json.should == '172800'
-    end
-  end
 end
