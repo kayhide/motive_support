@@ -1,4 +1,9 @@
 class Date
+  MONTHNAMES = [nil, *%w(January February March April May June July August September October November December)]
+  ABBR_MONTHNAMES = [nil, *%w(Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec)]
+  DAYNAMES = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
+  ABBR_DAYNAMES = %w(Sun Mon Tue Wed Thu Fri Sat)
+
   def self.parse str
     fail TypeError, "no implicit conversion of #{str.class} into String" unless str.is_a?(String)
     formatter = NSDateFormatter.new
@@ -9,6 +14,40 @@ class Date
       return Date.new(t.year, t.month, t.day) if t
     end
     fail ArgumentError, "invalid date"
+  end
+
+  def self._parse str, *_
+    res = {}
+    d = str.match(/\A(\d{4})(?:-(\d{1,2})(?:-(\d{1,2})|)|)/) # yyyy-mm-dd
+    if d
+      res[:year] = d[1].to_i
+      res[:mon] = d[2].to_i if d[2]
+      res[:mday] = d[3].to_i if d[3]
+    else
+      mon = ABBR_MONTHNAMES.drop(1).join('|')
+      if d = str.match(/\A(?:(\d{1,2})\s+|)(#{mon})(?:\s+(\d{4})|)/) # dd Mon yyyy
+        res[:mday] = d[1].to_i if d[1]
+        res[:mon] = ABBR_MONTHNAMES.index(d[2])
+        res[:year] = d[3].to_i if d[3]
+      elsif d = str.match(/(#{mon})(?:\s+(\d{1,2}))(?:\s+(\d{4}))/) # Mon dd yyyy
+        res[:mon] = ABBR_MONTHNAMES.index(d[1])
+        res[:mday] = d[2].to_i
+        res[:year] = d[3].to_i
+      end
+    end
+    t = str.match(/(\d{2}):(\d{2})(?::(\d{2})(?:.(\d+)|)|)/) # HH:MM:SS.sss
+    if t
+      res[:hour] = t[1].to_i
+      res[:min] = t[2].to_i
+      res[:sec] = t[3].to_i if t[3]
+      res[:sec_fraction] = Rational(t[4].to_i, 10**t[4].length) if t[4]
+    end
+    z = str.match(/([-+]\d{1,2}):?(\d{2})/) # [-+]zz:zz
+    if z
+      res[:zone] = z[0]
+      res[:offset] = z[1].to_i * 3600 + z[2].to_i * 60
+    end
+    res
   end
 
   def self.gregorian_leap?(year)

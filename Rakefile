@@ -4,6 +4,7 @@ require "bundler/gem_tasks"
 Bundler.require
 
 require 'motion-redgreen'
+require 'motion-stump'
 
 require File.join(Motion::Project::App.config.specs_dir, 'helpers/_init')
 
