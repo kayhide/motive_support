@@ -129,4 +129,12 @@ class Date
   def succ
     self + 1
   end
+
+  def gregorian?
+    true
+  end
+
+  def julian?
+    false
+  end
 end
