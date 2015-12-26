@@ -204,17 +204,19 @@ describe 'JSON::Encoding' do
   end
 
   describe 'with Object with #as_json' do
-    class CustomWithOptions
-      attr_accessor :foo, :bar
+    before do
+      @klass = Class.new do
+        attr_accessor :foo, :bar
 
-      def as_json(options={})
-        options[:only] = %w(foo bar)
-        super(options)
+        def as_json(options={})
+          options[:only] = %w(foo bar)
+          super(options)
+        end
       end
     end
 
     it 'does not keep options around with Hash' do
-      f = CustomWithOptions.new
+      f = @klass.new
       f.foo = "hello"
       f.bar = "world"
 
@@ -226,7 +228,7 @@ describe 'JSON::Encoding' do
     end
 
     it 'does not keep options around with Array' do
-      f = CustomWithOptions.new
+      f = @klass.new
       f.foo = "hello"
       f.bar = "world"
 
