@@ -14,6 +14,7 @@ require 'motive_support/callbacks'
 require 'motive_support/concern'
 require 'motive_support/inflector'
 
+require 'active_support/json'
 require 'active_support/logger'
 require 'active_support/number_helper'
 require 'active_support/i18n'

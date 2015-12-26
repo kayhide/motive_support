@@ -10,7 +10,7 @@ module JSON
   # @return [Hash, Array, NilClass] the converted data structure, nil if the incoming string isn't valid.
   #
   # TODO: support options like the C Ruby module does
-  def self.parse(str_data, &block)
+  def self.parse(str_data, *args, &block)
     return nil unless str_data
     data = str_data.respond_to?('dataUsingEncoding:') ? str_data.dataUsingEncoding(NSUTF8StringEncoding) : str_data
     opts = NSJSONReadingMutableContainers | NSJSONReadingMutableLeaves | NSJSONReadingAllowFragments
@@ -25,10 +25,16 @@ module JSON
 
   end
 
-  def self.generate(obj)
-    NSJSONSerialization.dataWithJSONObject(obj, options:0, error:nil).to_str
+  def self.generate(obj, *args)
+    if obj.is_a?(Array) || obj.is_a?(Hash)
+      NSJSONSerialization.dataWithJSONObject(obj, options:0, error:nil).to_s
+    else
+      NSJSONSerialization.dataWithJSONObject([obj], options:0, error:nil).to_s[1..-2]
+    end.gsub(/\\\\u|\\\//, '\\\\u' => '\\u', '\/' => '/')
   end
 
+  class State
+  end
 end
 
 # Preparations for core_ext/object/json
