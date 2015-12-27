@@ -3,6 +3,7 @@ require 'motion/project/template/ios'
 require "bundler/gem_tasks"
 Bundler.require
 
+require 'motive_support/all'
 require 'motion-redgreen'
 require 'motion-stump'
 
