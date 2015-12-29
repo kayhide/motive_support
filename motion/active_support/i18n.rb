@@ -4,4 +4,7 @@ require 'active_support/core_ext/hash/slice'
 
 require 'i18n'
 
-I18n.load_path << 'locale/active_support/en.yml'
+resource_dir = NSBundle.mainBundle.resourcePath
+Dir.chdir resource_dir do
+  I18n.load_path.concat Dir['locale/**/*.yml']
+end

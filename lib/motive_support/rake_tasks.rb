@@ -9,11 +9,17 @@ namespace :motive_support do
         if name
           dst = resources_dir.join(name)
           dst.dirname.mkpath
-          Motion::Project::App.info('Copy', file)
-          FileUtils.cp file, dst
+          file dst => file do
+            Motion::Project::App.info('Copy', file)
+            FileUtils.cp file, dst
+          end
+          task 'motive_support:locale:copy' => dst
         end
       end
+      Rake::Task['motive_support:locale:copy'].invoke
     end
+
+    task :copy
 
     task :clean do
       config = Motion::Project::App.config

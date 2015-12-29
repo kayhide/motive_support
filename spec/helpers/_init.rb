@@ -5,9 +5,3 @@ MotionBlender.raketime do
     I18n.load_path << [src, "locale/spec/#{lang}.yml"]
   end
 end
-
-MotionBlender.runtime do
-  %w(ja fr).each do |lang|
-    I18n.load_path << "locale/spec/#{lang}.yml"
-  end
-end
