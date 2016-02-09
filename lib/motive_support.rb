@@ -9,3 +9,4 @@ require 'motive_support/interpreters'
 require 'motive_support/ext'
 
 require 'active_support/dependencies/autoload'
+require 'active_support/logger'
