@@ -12,7 +12,7 @@ module ActiveSupport
 #   autoload :DescendantsTracker
 #   autoload :FileUpdateChecker
 #   autoload :LogSubscriber
-#   autoload :Notifications
+  autoload :Notifications
 
   eager_autoload do
 #     autoload :BacktraceCleaner
@@ -21,7 +21,7 @@ module ActiveSupport
 #     autoload :Cache
     autoload :Callbacks
 #     autoload :Configurable
-#     autoload :Deprecation
+    autoload :Deprecation
 #     autoload :Gzip
     autoload :Inflector
     autoload :JSON
