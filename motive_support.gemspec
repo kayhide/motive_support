@@ -20,8 +20,9 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'motion_blender'
-  spec.add_runtime_dependency 'activesupport', '~> 4.2'
+  spec.add_runtime_dependency 'activesupport', '= 4.2.5'
   spec.add_runtime_dependency 'motion-yaml', '= 1.5'
+  spec.add_runtime_dependency 'motion-securerandom'
   spec.add_runtime_dependency 'i18n', '~> 0.7'
   spec.add_runtime_dependency 'builder', '~> 3.2'
   spec.add_runtime_dependency 'tzinfo', '~> 1.2'
