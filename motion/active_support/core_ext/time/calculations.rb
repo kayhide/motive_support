@@ -1,14 +1,18 @@
 require __ORIGINAL__
 
 class Time
-  # Overwrite original
-  # to_datetime does not work
+  # def compare_with_coercion(other)
+  #   # we're avoiding Time#to_datetime cause it's expensive
+  #   if other.is_a?(Time)
+  #     compare_without_coercion(other.to_time)
+  #   else
+  #     to_datetime <=> other
+  #   end
+  # end
+  # alias_method :compare_without_coercion, :<=>
+  # alias_method :<=>, :compare_with_coercion
   def compare_with_coercion(other)
-    if other.is_a?(Time)
-      compare_without_coercion(other.to_time)
-    else
-      self <=> other.to_time
-    end
+    compare_without_coercion(other)
   end
   alias_method :<=>, :compare_with_coercion
 end
